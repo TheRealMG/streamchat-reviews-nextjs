@@ -20,9 +20,9 @@ const RootLayout = ({ children }) => {
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
         />
       </head>
-      <body>
+      <body className="flex justify-center">
         <Provider>
-          <main>
+          <main className="flex flex-col min-h-screen">
             <Nav />
             {children}
           </main>

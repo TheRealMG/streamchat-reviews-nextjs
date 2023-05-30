@@ -23,7 +23,7 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className="navbar">
+    <nav className="navbar h-20">
       <Link href="/" className="logo">
         SC<span className="purple_gradient">R</span>
       </Link>
@@ -108,7 +108,7 @@ const Nav = () => {
               width={35}
               height={35}
             />
-            
+
             <Image
               src="/assets/icons/menu.svg"
               alt="settings"

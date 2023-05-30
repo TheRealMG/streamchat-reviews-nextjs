@@ -4,7 +4,7 @@ import MainContent from "@components/MainContent";
 
 const Home = () => {
   return (
-    <section className="w-full flex-center flex-col">
+    <section className="flex flex-grow">
       {/* <h1 className="head_text text-center">
         StreamChat
         <br className="max-md:hidden" />
