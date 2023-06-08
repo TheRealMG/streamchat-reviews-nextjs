@@ -22,7 +22,7 @@ const RootLayout = ({ children }) => {
       </head>
       <body className="flex justify-center">
         <Provider>
-          <main className="flex flex-col min-h-screen">
+          <main className="app">
             <Nav />
             {children}
           </main>

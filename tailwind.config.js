@@ -12,6 +12,7 @@ module.exports = {
       },
       colors: {
         'primary-orange': '#FF5722',
+        'card-gray': '#202020',
       }
     },
   },

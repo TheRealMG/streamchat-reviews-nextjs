@@ -28,7 +28,8 @@ const Nav = () => {
         SC<span className="purple_gradient">R</span>
       </Link>
 
-      <div className="search_bar"></div>
+      {/* <div className="search_bar"></div> */}
+      <input type="text" placeholder="Search Reviews..." className="search_bar pl-4 pr-4" />
 
       {/* Desktop Navigation */}
       <div className=" hidden sm:flex items-center flex-row gap-5 relative">

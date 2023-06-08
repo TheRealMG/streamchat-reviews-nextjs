@@ -376,9 +376,8 @@ const DUMMY_REVIEWS = [
  ];
 
 const ReviewsContainer = () => {
-  return <div className="reviews_container flex-grow">
+  return <div className="reviews_container flex-grow mb-4">
     <ReviewCardList data={DUMMY_REVIEWS} />
-    My Reviews
   </div>;
 };
 
