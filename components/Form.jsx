@@ -4,14 +4,10 @@ import Link from "next/link";
 
 const Form = ({ type, submitting, handleSubmit, children }) => {
   return (
-    <section className="w-full max-w-3xl flex-center flex-col glassmorphism">
-      <h1 className="head_text text-left">
-        <span className="purple_gradient">{type} Review</span>
-      </h1>
-
+    <section className="w-full flex-center flex-col">
       <form
         onSubmit={handleSubmit}
-        className="mt-10 w-full max-w-2xl flex flex-col gap-7"
+        className="mt-10 w-full flex flex-col gap-7"
       >
         
         {children}

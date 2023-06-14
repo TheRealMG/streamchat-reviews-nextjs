@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .button {
+    @apply transition ease-in duration-200 bg-white/[.15] text-white/80 hover:bg-white hover:text-black h-14 rounded-lg flex items-center justify-center font-semibold shadow-md;
+  }
+}
+
+/* TipTap */
+
+h1.tiptap-heading {
+  @apply text-4xl font-bold;
+}
+h2.tiptap-heading {
+  @apply text-3xl font-bold;
+}
+h3.tiptap-heading {
+  @apply text-2xl font-bold;
+}
+h4.tiptap-heading {
+  @apply text-xl font-bold;
+}
+
+.prose {
+  max-width: none;
+}
+
 /* 
   Note: The styles for this gradient grid background is heavily inspired by the creator of this amazing site (https://dub.sh) – all credits go to them! 
 */
@@ -20,11 +45,15 @@
   }
 }
 
+html {
+  color-scheme: dark;
+}
+
 body {
   position: relative;
   background: #151515;
   color: white;
-  font-family: "Roboto", sans-serif;
+  font-family: "Segoe UI", "Roboto", sans-serif;
   font-style: normal;
   font-display: block;
 }
@@ -37,6 +66,15 @@ main {
   padding: 0px 10px;
 }
 
+.page_header {
+  z-index: 10;
+  width: 100%;
+  flex-grow: 0;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -45,10 +83,11 @@ main {
   /* Padding left and right is 50px */
   /* padding: 25px 0px; */
   width: 100%;
+  max-width: 1920px;
   /* transition: width 0.5s ease-in-out; */
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   main {
     max-width: 90%;
   }
@@ -58,7 +97,7 @@ main {
   main {
     max-width: 80%;
   }
-}
+} */
 
 .logo {
   flex: 0 0 auto;
@@ -70,19 +109,24 @@ main {
 
 .search_bar {
   flex: 1 1 auto;
+  border-radius: 25px;
+  min-width: 0;
+}
+
+.search_bar-input {
   height: 40px;
   background: rgba(255, 255, 255, 0.16);
   border-radius: 25px;
   transition: background-color 0.3s ease;
-  min-width: 0;
+  width: 100%;
 }
 
-.search_bar:hover,
-.search_bar:focus {
+.search_bar-input:hover,
+.search_bar-input:focus {
   background: rgba(255, 255, 255, 0.24);
 }
 
-.search_bar:focus {
+.search_bar-input:focus {
   outline: none;
 }
 
@@ -149,6 +193,16 @@ main {
   overflow: hidden;
 } */
 
+.page_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  /* min-height: 100%; */
+  width: 100%;
+  max-width: 1920px;
+}
+
 .page_art {
   position: absolute;
   top: 0;
@@ -158,8 +212,28 @@ main {
   height: 100%;
 }
 
+.art-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 100%;
+}
+
+.art {
+  max-height: 100%;
+  background: no-repeat top;
+  background-size: cover;
+  width: 100%;
+}
+
+.game_content {
+  @apply backdrop-blur;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 .card {
-  @apply bg-card-gray rounded-xl overflow-hidden shadow-xl;
+  @apply bg-card-gray rounded-xl overflow-hidden shadow-md;
 }
 
 .card-image {
@@ -190,11 +264,16 @@ main {
   @apply text-sm font-medium text-gray-300;
 }
 
+/* .game_availability-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+} */
+
 /* Tailwind Styles */
 
 .app {
   @apply relative z-10 flex justify-center items-center flex-col mx-auto sm:px-16 px-6;
-  max-width: 120rem;
+  min-height: 100%;
 }
 
 .black_btn {

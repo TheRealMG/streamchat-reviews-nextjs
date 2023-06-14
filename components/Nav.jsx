@@ -5,12 +5,23 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import SearchBar from "./SearchBar";
+
+import {useDispatch, useSelector} from "react-redux";
+import { clearSearchbarValue } from "@redux/slices/searchbarSlice";
 
 const Nav = () => {
   const { data: session } = useSession();
 
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
+
+  const searchbarPlaceholder = useSelector((store) => store.searchbar.placeholder);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("searchbarPlaceholder: " + searchbarPlaceholder);
+  }, [searchbarPlaceholder]);
 
   useEffect(() => {
     const setUpProviders = async () => {
@@ -23,105 +34,107 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className="navbar h-20">
-      <Link href="/" className="logo">
-        SC<span className="purple_gradient">R</span>
-      </Link>
+    <header className="page_header">
+      <nav className="navbar h-20">
+        <Link href="/" className="logo" onClick={() => {dispatch(clearSearchbarValue())}}>
+          SC<span className="purple_gradient">R</span>
+        </Link>
+  
+        {/* <div className="search_bar"></div> */}
+        {/* <input type="text" placeholder={searchbarPlaceholder} className="search_bar pl-4 pr-4 shadow-md" /> */}
+        <form className="search_bar shadow-md" onSubmit={() => {}}>
+          <SearchBar
+            placeholder="Search Games..."
+          />
+        </form>
 
-      {/* <div className="search_bar"></div> */}
-      <input type="text" placeholder="Search Reviews..." className="search_bar pl-4 pr-4" />
-
-      {/* Desktop Navigation */}
-      <div className=" hidden sm:flex items-center flex-row gap-5 relative">
-        {session?.user ? (
-          <>
-            <div className="flex items-center gap-2">
+        {/* Desktop Navigation */}
+        <div className=" hidden sm:flex items-center flex-row gap-5 relative">
+          {session?.user ? (
+            <>
+              <div className="flex items-center gap-2">
+                <Image
+                  src={session?.user.image}
+                  className="w-35 h-35 rounded-full"
+                  alt="profile"
+                  width={35}
+                  height={35}
+                />
+                <div className="text-white">My Reviews</div>
+              </div>
+  
+              <Link href="/games" className="text-white" onClick={() => {dispatch(clearSearchbarValue())}}>
+                Games
+              </Link>
+  
+              <div className="text-white">
+                <Image
+                  src="/assets/icons/ellipses.svg"
+                  alt="settings"
+                  className="w-6 h-6 cursor-pointer"
+                  width={24}
+                  height={24}
+                  onClick={() => setToggleDropdown((prev) => !prev)}
+                />
+  
+                {toggleDropdown && (
+                  <div className="dropdown">
+                    <Link
+                      href="/settings"
+                      className="dropdown_link"
+                      onClick={() => setToggleDropdown(false)}
+                    >
+                      Settings
+                    </Link>
+  
+                    <button className="dropdown_link" onClick={signOut}>
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              {providers &&
+                Object.values(providers).map((provider) => (
+                  <button
+                    type="button"
+                    key={provider.name}
+                    onClick={() => signIn(provider.id)}
+                  >
+                    Sign In
+                  </button>
+                ))}
+            </>
+          )}
+        </div>
+  
+        {/* Mobile Navigation */}
+        <div className="menu_items sm:hidden flex relative">
+          {session?.user ? (
+            <>
               <Image
                 src={session?.user.image}
-                className="w-35 h-35 rounded-full"
+                className="profile_picture"
                 alt="profile"
                 width={35}
                 height={35}
               />
-              <div className="text-white">My Reviews</div>
-            </div>
-
-            <Link href="/new-review" className="text-white">
+  
               <Image
-                src="/assets/icons/plus.svg"
-                alt="new review"
-                width={24}
-                height={24}
-              />
-            </Link>
-
-            <div className="text-white">
-              <Image
-                src="/assets/icons/ellipses.svg"
+                src="/assets/icons/menu.svg"
                 alt="settings"
-                className="w-6 h-6 cursor-pointer"
                 width={24}
                 height={24}
-                onClick={() => setToggleDropdown((prev) => !prev)}
               />
-
-              {toggleDropdown && (
-                <div className="dropdown">
-                  <Link
-                    href="/settings"
-                    className="dropdown_link"
-                    onClick={() => setToggleDropdown(false)}
-                  >
-                    Settings
-                  </Link>
-
-                  <button className="dropdown_link" onClick={signOut}>
-                    Sign Out
-                  </button>
-                </div>
-              )}
-            </div>
-          </>
-        ) : (
-          <>
-            {providers &&
-              Object.values(providers).map((provider) => (
-                <button
-                  type="button"
-                  key={provider.name}
-                  onClick={() => signIn(provider.id)}
-                >
-                  Sign In
-                </button>
-              ))}
-          </>
-        )}
-      </div>
-
-      {/* Mobile Navigation */}
-      <div className="menu_items sm:hidden flex relative">
-        {session?.user ? (
-          <>
-            <Image
-              src={session?.user.image}
-              className="profile_picture"
-              alt="profile"
-              width={35}
-              height={35}
-            />
-
-            <Image
-              src="/assets/icons/menu.svg"
-              alt="settings"
-              width={24}
-              height={24}
-            />
-          </>
-        ) : (
-          <button></button>
-        )}
-      </div>
-    </nav>
+            </>
+          ) : (
+            <button></button>
+          )}
+        </div>
+      </nav>
+    </header>
   );
 };
 

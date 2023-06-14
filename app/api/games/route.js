@@ -9,7 +9,7 @@ export const POST = async (req, res) => {
   const { searchQuery } = await req.json();
 
   try {
-    const body = `where name ~ *"${searchQuery}"* & cover != null & version_parent = null & parent_game = null & category = 0 & involved_companies != null; 
+    const body = `where name ~ *"${searchQuery}"* & cover != null & version_parent = null & (category = 0 | category = 4 | category = 8 | category = 9) & involved_companies != null; 
     fields name, cover.*, total_rating, total_rating_count, release_dates.date, involved_companies.*, involved_companies.company.name; 
     limit 100;`;
 

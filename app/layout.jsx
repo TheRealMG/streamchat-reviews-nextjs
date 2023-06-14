@@ -3,7 +3,8 @@ import React from "react";
 import "@styles/globals.css";
 
 import Nav from "@components/Nav";
-import Provider from "@components/Provider";
+import AuthProvider from "@components/AuthProvider";
+import ReduxProvider from "@redux/provider";
 
 export const metadata = {
   title: "StreamChat Reviews",
@@ -21,12 +22,14 @@ const RootLayout = ({ children }) => {
         />
       </head>
       <body className="flex justify-center">
-        <Provider>
-          <main className="app">
-            <Nav />
-            {children}
-          </main>
-        </Provider>
+        <ReduxProvider>
+          <AuthProvider>
+            <main className="app">
+              <Nav />
+              {children}
+            </main>
+          </AuthProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
