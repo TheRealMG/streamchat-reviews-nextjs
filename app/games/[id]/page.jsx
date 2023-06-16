@@ -17,7 +17,7 @@ const GameDetails = ({ game }) => {
   const getMainWebsiteUrl = (websites) => {
     const mainWebsite = websites.find((website) => website.category === 1);
     return mainWebsite ? (
-      <Link href={`${mainWebsite.url}`} className="underline">
+      <Link href={`${mainWebsite.url}`} className="underline break-all">
         {mainWebsite.url}
       </Link>
     ) : null;
@@ -30,16 +30,16 @@ const GameDetails = ({ game }) => {
   };
 
   return (
-    <div className="game_content mx-auto w-3/4 rounded-2xl shadow-xl">
+    <div className="game_content mx-auto w-full md:w-3/4 rounded-2xl shadow-xl">
       <div className="game_content-columns flex flex-wrap">
         <div className="w-full lg:w-4/6 p-4">
-          <h1 className="text-7xl font-bold pb-4">{game.name}</h1>
+          <h1 className="text-4xl lg:text-7xl font-bold pb-4">{game.name}</h1>
 
-          <div className="game_about mt-8">
+          <div className="game_about">
             <h2 className="text-2xl font-bold">About</h2>
             <p className="game_about-text">{game.summary}</p>
           </div>
-          <div className="game_meta grid grid-cols-2 gap-4 mt-8">
+          <div className="game_meta grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
             <GameMetaBlock title="Platform(s)">
               <p>
                 {game.platforms
@@ -95,7 +95,7 @@ const GameDetails = ({ game }) => {
             </GameMetaBlock>
             {game.websites &&
               game.websites.find((website) => website.category === 1) && (
-                <GameMetaBlock title="Website" columns={2}>
+                <GameMetaBlock title="Website">
                   {getMainWebsiteUrl(game.websites)}
                 </GameMetaBlock>
               )}
@@ -160,7 +160,7 @@ const GameArt = ({ game }) => {
     <div className="page_art">
       <div className="art-wrapper">
         <div
-          className="art"
+          className="art blur-sm md:blur"
           style={{
             height: "80vh",
             backgroundColor: "transparent",
@@ -168,7 +168,6 @@ const GameArt = ({ game }) => {
               game.cover
             )}')`,
             zIndex: 1,
-            filter: "blur(10px)",
             transition: "background-image 0.3s ease-in-out",
           }}
         ></div>

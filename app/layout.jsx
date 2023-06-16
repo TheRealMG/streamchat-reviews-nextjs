@@ -2,7 +2,7 @@ import React from "react";
 
 import "@styles/globals.css";
 
-import Nav from "@components/Nav";
+import Nav from "@components/Nav/Nav";
 import AuthProvider from "@components/AuthProvider";
 import ReduxProvider from "@redux/provider";
 

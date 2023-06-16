@@ -53,15 +53,12 @@ const NewGameReview = () => {
         {reduxGame &&
         reduxGame.game &&
         reduxGame.game.id.toString() === params.id ? (
-          <div className="game_content mx-auto w-3/4 rounded-2xl shadow-xl p-4">
-            <h1 className="text-7xl font-bold pb-4">{reduxGame.game.name}</h1>
-            <Form type="New" handleSubmit={() => {}}>
-              <label>
-                <h2 className="text-2xl font-bold">Review Text</h2>
-
-                <Tiptap />
-              </label>
-            </Form>
+          <div className="game_content mx-auto w-full md:w-3/4 rounded-2xl shadow-xl p-4">
+            <h1 className="text-4xl md:text-4xl lg:text-7xl font-bold pb-4">{reduxGame.game.name}</h1>
+            <div>
+              <h2 className="text-2xl font-bold mb-2">Review Text</h2>
+              <Tiptap />
+            </div>
           </div>
         ) : (
           <p>loading...</p>

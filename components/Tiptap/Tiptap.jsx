@@ -1,40 +1,69 @@
-"use client";
-
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import CharacterCount from "@tiptap/extension-character-count";
+import Placeholder from "@tiptap/extension-placeholder";
+import Link from "@tiptap/extension-link";
+import Underline from "@tiptap/extension-underline";
+import TextAlign from "@tiptap/extension-text-align";
+
+import EditorMenu from "./EditorMenu/EditorMenu";
+import EditorFooter from "./EditorFooter/EditorFooter";
 
 const Tiptap = () => {
   const editor = useEditor({
-    extensions: [StarterKit],
-    content: `
-    <p>Assassins Creed 2 is a semi open world action adventure game.</p>
-
-    <h2>Story</h2>
-    <p>Two plots, one set in the "modern" world and the other in 15th century Italy. Both are connected in an overarching way through the existence of Assassins and Templars. I think everyone one here knows the basis, so I'll leave it at that. The big "gotcha" in this game was just kinda of a head scratcher, pretty interesting but I have no hype cause I'm pretty sure everything gets retconned anyway. </p>
-    
-    <h2>Graphics</h2>
-    <p>Pretty solid for being a 2009 game. It kinda looks like mud in some areas, but I think it's decent for the time. It somehow looks best on Switch. </p>
-    
-    <h2>Sound</h2>
-    <p>Some of it's low quality but I can't judge because I think switch has an issue with low quality sound to keep the file size lower. Overall, fine. Music is fine.</p> 
-    
-    <h2>Gameplay</h2>
-    <p>This is where most of my gripes come into play. I have a realization that a game does not age well not only due to the year it came out, but also genre. For the time, I bet the game was really great. But it has aged very poorly if you compare it to other games of the same genre in more recent times. The game is way too long for what it offers gameplay wise (and story wise), and I feel like both was so oddly paced the last 2/3rds of the game. You stop getting any sort of upgrades about mid game, and they just keep feeding you the same sort of filler like missions to continue the story. So not only is the game like 5 hours too long, before you can access the last section of the game, you have to go collect pages from all across the maps you've been to, which you only get the locations of those right then. You can fast travel between areas but not within the city (which are pretty big), combat is pretty mind numbing, parkour is frustrating more than helpful. I didn't really enjoy my time after halfway point of the game. </p>
-    
-    <p>Overall, a good game for it's time, but it's pretty dated.</p>
-    `,
+    extensions: [
+      Placeholder.configure({
+        placeholder: "Write your review here...",
+      }),
+      StarterKit.configure({
+        heading: {
+          levels: [1, 2, 3],
+        },
+      }),
+      Link.configure({
+        openOnClick: false,
+        validate: href => /^https?:\/\//.test(href),
+      }),
+      Underline,
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+        alignments: ["left", "center", "right"]
+      }),
+      CharacterCount,
+    ],
+    content: `<h1>Write your review here...</h1>
+    <h2>What did you like about the game?</h2>
+    <h2>What didn't you like about the game?</h2>
+    <h3>Would you recommend this game to others?</h3>
+    <h3>How would you rate this game?</h3>
+    <h3>How many hours did you play this game?</h3>
+    <h4>What is your overall opinion of this game?</h4>`,
     editorProps: {
       attributes: {
-        class:
-          "prose lg:prose-lg form_input bg-white h-96 w-full overflow-y-scroll p-4 shadow-md",
+        class: "prose focus:outline-none text-black",
       },
     },
   });
 
+  if (!editor) {
+    return null;
+  }
+
   return (
-    <>
-      <EditorContent editor={editor} />
-    </>
+    <div className="editor rounded-lg bg-white w-full divide-y-2 shadow-md">
+      <EditorMenu
+        editor={editor}
+        className="editor_header text-black p-2 font-bold shadow-lg flex items-center divide-x divide-slate-500"
+      />
+      <EditorContent
+        editor={editor}
+        className="editor_content overflow-y-scroll p-2 h-96"
+      />
+      <EditorFooter
+        editor={editor}
+        className="editor_footer text-black p-2 space-x-2 font-bold"
+      />
+    </div>
   );
 };
 

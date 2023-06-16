@@ -21,15 +21,9 @@ const searchbarSlice = createSlice({
     clearSearchbarValue(state) {
       state.value = '';
     },
-    updateSearchbarCallback(state, action) {
-      state.callback = action.payload;
-    },
-    clearSearchbarCallback(state) {
-      state.callback = null;
-    },
   },
 });
 
-export const {updateSearchbarPlaceholder, updateSearchbarValue, updateSearchbarCallback, clearSearchbarCallback, clearSearchbarValue} = searchbarSlice.actions;
+export const {updateSearchbarPlaceholder, updateSearchbarValue, clearSearchbarValue} = searchbarSlice.actions;
 
 export default searchbarSlice.reducer;
