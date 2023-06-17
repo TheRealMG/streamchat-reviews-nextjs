@@ -6,7 +6,7 @@ import ReviewsContainer from "./ReviewsContainer";
 const MainContent = () => {
   return (
     <>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <ReviewsContainer />
     </>
   );
